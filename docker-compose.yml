@@ -205,8 +205,8 @@ services:
       # Certificate Authority public key
       - ${DEVILBOX_PATH}/ca:/ca:rw${MOUNT_OPTIONS}
 
-      # Bind ssh
-      - ${SSH_PATH}:/root/.ssh
+      # Mount SSH
+      - ${LOCAL_SSH_PATH}:${CONTAINER_SSH_PATH}
 
     depends_on:
       - bind
@@ -469,10 +469,10 @@ services:
   # Elasticsearch
   # -----------------------------------------------------------------------------------------------
   elastic:
-    image: elasticsearch:${ELK_SERVER}
+    image: elasticsearch:${ELASTIC_VER}
     hostname: elastic
     ports:
-      - "${LOCAL_LISTEN_ADDR}${HOST_PORT_ELK_ELASTIC:-9200}:9200"
+      - "${LOCAL_LISTEN_ADDR}${HOST_PORT_ELASTIC:-9200}:9200"
     networks:
       app_net:
         ipv4_address: 172.16.238.240
@@ -510,7 +510,7 @@ services:
       - ${DEVILBOX_PATH}/ca:/ca:rw${MOUNT_OPTIONS}
 
       # Mount SSH
-      - ${SSH_PATH}:/root/.ssh
+      - ${LOCAL_SSH_PATH}:${CONTAINER_SSH_PATH}
     networks:
       app_net:
         ipv4_address: 172.16.238.17
@@ -550,7 +550,7 @@ services:
       - ${DEVILBOX_PATH}/ca:/ca:rw${MOUNT_OPTIONS}
 
       # Mount SSH
-      - ${SSH_PATH}:/root/.ssh
+      - ${LOCAL_SSH_PATH}:${CONTAINER_SSH_PATH}
     networks:
       app_net:
         ipv4_address: 172.16.238.243
