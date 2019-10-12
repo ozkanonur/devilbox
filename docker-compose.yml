@@ -98,7 +98,8 @@ services:
     build:
       context: ./.docker/Containers/PHP/
       args:
-        VERSION: "${PHP_SERVER}"
+        VERSION: ${PHP_SERVER}
+        NODE_VERSION : ${NODE_VERSION}
     hostname: php
 
     ##
@@ -527,6 +528,8 @@ services:
         DEBIAN_VERSION: ${DEBIAN_VERSION}
         NODE_VERSION : ${NODE_VERSION}
     container_name: debian
+    hostname: debian
+    working_dir: /var/www/
     tty: true
     ports:
       - "${HOST_PORT_DEBIAN}:${LISTEN_PORT_DEBIAN}"
